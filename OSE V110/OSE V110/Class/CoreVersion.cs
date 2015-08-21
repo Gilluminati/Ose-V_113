@@ -16,7 +16,7 @@ namespace OSE_V110.Class
         /// </summary>
         public static string Versao
         {
-            get { return @"110.D"; }
+            get { return @"113.D"; }
         }
 
         /// <summary>

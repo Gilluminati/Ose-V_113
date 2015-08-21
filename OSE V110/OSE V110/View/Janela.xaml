@@ -5,7 +5,7 @@
         
         TitleCaps="False" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  
         FontFamily="Segoe WP SemiLight" 
-        Title="Janela" Height="672" Width="1022" Loaded="MetroWindow_Loaded">
+        Title="Janela" Height="672" Width="1022" Loaded="MetroWindow_Loaded" KeyDown="MetroWindow_KeyDown">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <!-- Region (Botoes) -->
@@ -44,7 +44,7 @@
             </Button>
 
             <!--Botao Sair-->
-            <Button Cursor="Hand" x:Name="CmdSair">
+            <Button Cursor="Hand" x:Name="CmdSair" Click="CmdSair_OnClick">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20" 
                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
@@ -62,7 +62,7 @@
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid>
-        <GroupBox x:Name="BoxMenu"  Margin="10,10,10,0" VerticalAlignment="Top" Height="576" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Hidden">
+        <GroupBox x:Name="BoxMenu"  Margin="10,10,10,0" VerticalAlignment="Top" Height="576" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
             <ListView x:Name="ListViewMenu" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" BorderThickness="0,0,0.5,0.5" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" KeyDown="ListViewMenu_OnKeyDown" MouseDoubleClick="ListViewMenu_OnMouseDoubleClick" IsSynchronizedWithCurrentItem="True" FontSize="15" BorderBrush="DeepSkyBlue" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Height="546" Margin="10,0,0,0" VerticalAlignment="Top" Width="962">
                 <ListView.View >
                     <GridView  x:Name="Gridcolunas" AllowsColumnReorder="False">

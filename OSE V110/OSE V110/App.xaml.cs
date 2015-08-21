@@ -23,6 +23,7 @@ namespace OSE_V110
                 GlowBrush = new SolidColorBrush(Colors.White)
             };
             janela.Show();
+            janela.ModoDesenvolvedor(e);
         }
     }
 }

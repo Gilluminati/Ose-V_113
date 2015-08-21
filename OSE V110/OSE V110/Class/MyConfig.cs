@@ -67,6 +67,7 @@ namespace OSE_V110.Class
             }
             catch (MySqlException e)
             {
+                Erros.Output(e.ToString());
                 return false;
             }
         }

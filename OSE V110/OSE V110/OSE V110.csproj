@@ -36,6 +36,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>1438391633_pyramids.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro, Version=1.1.2.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.1.2.0\lib\net45\MahApps.Metro.dll</HintPath>
@@ -75,7 +78,9 @@
     <Compile Include="Class\CoreVersion.cs" />
     <Compile Include="Class\Erros.cs" />
     <Compile Include="Class\HashEncryp.cs" />
+    <Compile Include="Class\Menu.cs" />
     <Compile Include="Class\MyConfig.cs" />
+    <Compile Include="Class\Usuario.cs" />
     <Compile Include="View\Janela.xaml.cs">
       <DependentUpon>Janela.xaml</DependentUpon>
     </Compile>
@@ -122,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="1438391633_pyramids.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
