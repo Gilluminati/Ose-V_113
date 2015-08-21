@@ -129,7 +129,7 @@ namespace OSE_V110.View
         /// <param name="servidor">Servidor conectado</param>
         /// <param name="usuario">Usuario conectado</param>
         internal void UpdateStatusBar(bool conexao,
-                            string servidor,
+                            string servidor,    
                             string usuario)
         {
             LblConexaoStatus.Content = conexao ? "Online" : "Offline";
