@@ -1,0 +1,12 @@
+-- Servico MySql --
+-- Criar o usuario 
+Usuario:root
+Senha:root
+permissao:%
+
+Banco de dados
+Nome:main_v101
+
+Rodar o Script dentro do banco
+
+--> main_v101_struct.sql
