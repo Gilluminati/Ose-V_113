@@ -1,0 +1,84 @@
+﻿<controls:MetroWindow x:Class="MDM100.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        TitleCaps="False" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  
+        FontFamily="Segoe WP SemiLight"                      
+        IsWindowDraggable="False"                           
+        Height="600" Width="1000"  Loaded="MainWindow_OnLoaded" KeyDown="MetroWindow_KeyDown">
+    <!--Controles Da Janela-->
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+
+            <!--Cadastra Novo Modulo-->
+            <Button Cursor="Hand" x:Name="CmdCadastra" Click="CmdCadastra_OnClick" >
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" x:Name="RectangleCmdSuporte"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                                   VerticalAlignment="Center"
+                                   Text="Cadastrar Modulo" />
+                </StackPanel>
+            </Button>
+
+
+
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Canvas HorizontalAlignment="Left" Height="533" Margin="10,10,0,0" VerticalAlignment="Top" Width="974">
+            <Label Content="Manutencao de Modulo(s)" Canvas.Left="355" Canvas.Top="9" FontSize="20" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <Label Content="Total Modulos Cadastrados :" Canvas.Left="10" Canvas.Top="10" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <Label x:Name="LblModCad" Content="000" Canvas.Left="166" Canvas.Top="10" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="DodgerBlue"/>
+            <Label Content="Menus :" Canvas.Left="110" Canvas.Top="36" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <Label Content="Aplicacoe(s) :" Canvas.Left="88" Canvas.Top="62" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <Label x:Name="LblMenuTotal" Content="000" Canvas.Left="166" Canvas.Top="36" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="DodgerBlue"/>
+            <Label x:Name="LblAplicTotal" Content="000" Canvas.Left="166" Canvas.Top="62" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="DodgerBlue"/>
+            <ListView x:Name="ListView" Height="377" Canvas.Left="10" Canvas.Top="144" Width="954" MouseLeftButtonDown="ListView_MouseLeftButtonDown" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="ListView_MouseDoubleClick" TabIndex="7" KeyDown="ListView_KeyDown">
+                <ListView.View>
+                    <GridView  x:Name="Gridcolunas" AllowsColumnReorder="False">
+                        <GridViewColumn x:Name="ColumnTipo" Header="Tipo" 
+        					DisplayMemberBinding="{Binding Tipo}"
+        					Width="150"/>
+
+                        <GridViewColumn Header="Modulo"
+        					DisplayMemberBinding="{Binding Modulo}"
+        					Width="150"/>
+
+                        <GridViewColumn Header="Descricao"
+        					DisplayMemberBinding="{Binding Descricao}"
+        					Width="500"/>
+
+                        <GridViewColumn Header="Privilegio"
+        					DisplayMemberBinding="{Binding Privilegio}"
+        					Width="151"/>
+
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Content="Modulos Cadastrados" Canvas.Left="10" Canvas.Top="102" FontSize="20" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="DodgerBlue"/>
+            <Label Content="Filtrar :" Canvas.Left="293" Canvas.Top="111" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <RadioButton IsChecked="True" x:Name="RadFilTodos" Content="Todos" Canvas.Left="348" Canvas.Top="115" Width="75" Click="RadFilTodos_Checked" TabIndex="4"/>
+            <RadioButton x:Name="RadApenasModulo" Content="Apenas Modulo(s)" Canvas.Left="597" Canvas.Top="115" Width="141" Click="RadApenasModulo_Checked" TabIndex="6"/>
+            <RadioButton x:Name="RadApenasAplic" Content="Apenas Aplicacoes(s)" Canvas.Left="429" Canvas.Top="115" Width="153" Click="RadApenasAplic_Checked" TabIndex="5"/>
+            <Label Content="Pesquisar :" Canvas.Left="274" Canvas.Top="52" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <TextBox x:Name="TextBox" FontSize="15" FontFamily="Segoe WP SemiLight" Height="23"  Canvas.Left="343" TextWrapping="Wrap" Text="" Canvas.Top="52" Width="379" KeyDown="TextBox_KeyDown" KeyUp="TextBox_KeyUp" TabIndex="0"/>
+            <Canvas Height="18" Canvas.Left="343" Canvas.Top="83" Width="379">
+                <RadioButton x:Name="RadModulo"  Content="Modulo" Canvas.Left="5" Width="75" Click="RadModulo_Checked" TabIndex="1"/>
+                <RadioButton x:Name="RadDescricao" IsChecked="True" Content="Descricao" Canvas.Left="85" Width="85" Click="RadDescricao_Checked" TabIndex="2"/>
+                <RadioButton x:Name="RadPrivilegio" Content="Privilegio" Canvas.Left="175" Width="87" Click="RadPrivilegio_Checked" TabIndex="3"/>
+            </Canvas>
+            <Label x:Name="Label" Content="MDM100" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Silver" Height="26" Canvas.Top="-8" Width="119" Canvas.Left="10"/>
+        </Canvas>
+    </Grid>
+</controls:MetroWindow>

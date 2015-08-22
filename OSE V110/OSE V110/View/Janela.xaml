@@ -39,7 +39,7 @@
                     </Rectangle>
                     <TextBlock Margin="4 0 0 0"
                                    VerticalAlignment="Center"
-                                   Text="Entrada De Usuario" />
+                                   Text="[F1] Entrada De Usuario" />
                 </StackPanel>
             </Button>
 
@@ -55,7 +55,7 @@
                     </Rectangle>
                     <TextBlock Margin="4 0 0 0"
                                    VerticalAlignment="Center"
-                                   Text="Desconectar" />
+                                   Text="[F1] Desconectar" />
                 </StackPanel>
             </Button>
             <!-- EndRegion -->

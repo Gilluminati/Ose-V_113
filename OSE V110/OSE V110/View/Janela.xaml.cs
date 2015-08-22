@@ -213,6 +213,11 @@ namespace OSE_V110.View
                                 Usuario.MUsuario.Usuario);
                 CoreMySql.LoadMenu(@"MNU000",Usuario.MUsuario.Privilegio);
                 InicializarListView();
+
+                // Log de Usuario(s)
+                Erros.LogUsuario(Usuario.MUsuario.Usuario,
+                                 CoreMySql.CoreMe.Servidor,
+                                 Erros.TipoFuncaoUsuario.Entrada);
             }
 
         }
@@ -285,9 +290,9 @@ namespace OSE_V110.View
             Gridcolunas.Columns[0].Width = _mrColunaTipo;
             Gridcolunas.Columns[1].Width = _mrColunaModulo;
             Gridcolunas.Columns[2].Width = _mrColunaDescricao;
+            ListViewMenu.Items.Clear();
 
             if (ArrayList.Count == 0) { return; }
-            ListViewMenu.Items.Clear();
             foreach (var vitem in ArrayList.Cast<Menu>())
             {
                 ListViewMenu.Items.Add(new Menu()
@@ -369,6 +374,19 @@ namespace OSE_V110.View
 
         private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            switch (e.Key)
+            {
+                case Key.F1:
+                    if (CmdSair.Visibility == Visibility.Visible)
+                    {
+                        CmdSair_OnClick(null, null);
+                    }
+                    else
+                    {
+                        CmdEntra_OnClick(null, null);
+                    }
+                    break;       
+            }
             if (ListViewMenu.Visibility != Visibility.Visible)
             {
                 return;
@@ -386,6 +404,8 @@ namespace OSE_V110.View
                 case Key.Escape:
 
                     break;
+
+               
             }
         }
 
@@ -396,6 +416,12 @@ namespace OSE_V110.View
         /// <param name="e"></param>
         private void CmdSair_OnClick(object sender, RoutedEventArgs e)
         {
+            // Log de Usuario(s)
+            Erros.LogUsuario(Usuario.MUsuario.Usuario,
+                             CoreMySql.CoreMe.Servidor,
+                             Erros.TipoFuncaoUsuario.Saida);
+
+
             Usuario.Logout();
             ArrayList.Clear();
 
@@ -404,6 +430,7 @@ namespace OSE_V110.View
             BoxMenu.Visibility = Visibility.Hidden;
 
             MySqlService.RunWorkerAsync();
+
         }
 
         /// <summary>
