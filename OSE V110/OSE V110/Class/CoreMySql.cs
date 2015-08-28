@@ -83,7 +83,7 @@ namespace OSE_V110.Class
         /// <returns></returns>
         public bool UserInput(string user,
                               string pw)
-        {
+          {
             pw = HashEncryp.Codifica(pw);
             if (!IsConnectMySql())
             {
@@ -141,7 +141,15 @@ namespace OSE_V110.Class
                         }
 
                         // Usuario- Validado com sucesso
-                        Janela.Usuario.MUsuario.Usuario = s.Parameters[@"p_USUARIO"].Value.ToString();
+                        //if (s.Parameters[@"p_USUARIO"].Value.ToString() == @"bloqueado")
+                        //{
+                        //    Janela.Usuario.MUsuario.Usuario = s.Parameters[@"p_USUARIO"].Value.ToString() +
+                        //                                      user;
+                        //}
+                        //else
+                        //{
+                            Janela.Usuario.MUsuario.Usuario = s.Parameters[@"p_USUARIO"].Value.ToString();
+                        //}
                         Janela.Usuario.MUsuario.Nome = s.Parameters[@"o_NOME"].Value.ToString();
                         Janela.Usuario.MUsuario.Privilegio = s.Parameters[@"o_PRIVILEGIO"].Value.ToString();
                         Janela.Usuario.MUsuario.Estado = s.Parameters[@"o_ESTADO"].Value.ToString();

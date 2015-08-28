@@ -19,7 +19,8 @@ namespace OSEInterface
     /// </summary>
     public class Interface
     {
-        //public MyConfig Config = new MyConfig();
+        #region MySql Interface
+        
         public struct Me
         {
             public string Servidor { get; set; }
@@ -31,15 +32,21 @@ namespace OSEInterface
             public bool IsOnline { get; set; }
 
         }  
+
         public Me SMySql = new Me();
         internal MySqlConnection Connection;
-        internal string ConnectionString;
 
-        //public void Carregar_Config()
-        //{
-        //    Config.Carregar_Config();
-        //}
-
+        public string ConnectionString
+        {
+            get
+            {
+                return "SERVER=" + SMySql.Servidor +
+                       ";PORT=" + SMySql.Porta +
+                       ";DATABASE=" + SMySql.Banco +
+                       ";UID=" + SMySql.Usuario +
+                       ";PASSWORD=" + SMySql.Senha;
+            }
+        }
         public bool Carregar_Config()
         {
             var file = string.Concat(AppDomain.CurrentDomain.BaseDirectory,
@@ -96,7 +103,6 @@ namespace OSEInterface
                 return false;
             }
         }    
-
         public bool IsConnectMySql()
         {
             if (SMySql.Servidor == string.Empty ||
@@ -114,6 +120,7 @@ namespace OSEInterface
                  ";UID=" + SMySql.Usuario +
                  ";PASSWORD=" + SMySql.Senha;
 
+            //ConnectionString = SMySql.ConnectionString;
             Connection = new MySqlConnection(SMySql.ConnectionString);
             try
             {
@@ -135,76 +142,12 @@ namespace OSEInterface
                 }
             }
         }
-
         public string MyServer
         {
             get { return SMySql.Servidor; }
         }
+        #endregion
     }
-
-    /// <summary>
-    /// Essa class representa configuracao
-    /// </summary>
-    //public class MyConfig
-    //{
-    //    public Interface Interface = new Interface();
-    //    public bool Carregar_Config()
-    //    {
-    //        var file = string.Concat(AppDomain.CurrentDomain.BaseDirectory,
-    //                                "Configuracao\\Mysql.Xml");
-
-    //        try
-    //        {
-    //            if (!File.Exists(file))
-    //            {
-    //                return false;
-    //            }
-    //            var xml = new XmlDocument();
-    //            xml.Load(file);
-
-    //            var list = xml.SelectNodes("/MYSQL");
-    //            if (list == null)
-    //            {
-    //                Console.WriteLine(@"Arquivo Local :[Configuracao\\Mysql.Xml]" + Environment.NewLine + @"Cod :1012");
-    //                return false;
-    //            }
-    //            foreach (XmlNode n in list)
-    //            {
-    //                var s = n.SelectSingleNode("SERVIDOR");
-    //                if (s != null)
-    //                {
-                        
-    //                    Interface.SMySql.Servidor = HashEncryp.Decodifica(s.InnerText);
-    //                }
-    //                s = n.SelectSingleNode("PORTA");
-    //                if (s != null)
-    //                {
-    //                    Interface.SMySql.Porta = HashEncryp.Decodifica(s.InnerText);
-    //                }
-    //                s = n.SelectSingleNode("USUARIO");
-    //                if (s != null)
-    //                {
-    //                    Interface.SMySql.Usuario = HashEncryp.Decodifica(s.InnerText);
-    //                }
-    //                s = n.SelectSingleNode("SENHA");
-    //                if (s != null)
-    //                {
-    //                    Interface.SMySql.Senha = HashEncryp.Decodifica(s.InnerText);
-    //                }
-    //                s = n.SelectSingleNode("BANCO");
-    //                if (s != null)
-    //                {
-    //                    Interface.SMySql.Banco = HashEncryp.Decodifica(s.InnerText);
-    //                }
-    //            }
-    //            return true;
-    //        }
-    //        catch (MySqlException e)
-    //        {
-    //            return false;
-    //        }
-    //    }    
-    //}
 }
 
 /*

@@ -57,6 +57,21 @@ namespace OSE_V110.View
         public static string Lastobj { get; set; }
         public static string MenuAnt { get; set; }
 
+        internal string GetMyIp
+        {
+            get
+            {
+                var myIpHost = IPAddress.None;
+                foreach (var ip in Dns.GetHostAddresses(Dns.GetHostName()))
+                {
+                myIpHost = ip;
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    break;
+                }
+                return myIpHost.ToString();
+            }
+        }
+
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             BoxMenu.Visibility = Visibility.Hidden;
@@ -212,11 +227,13 @@ namespace OSE_V110.View
                                 CoreMySql.CoreMe.Servidor,
                                 Usuario.MUsuario.Usuario);
                 CoreMySql.LoadMenu(@"MNU000",Usuario.MUsuario.Privilegio);
+                Lastobj = @"MNU000";
                 InicializarListView();
 
                 // Log de Usuario(s)
                 Erros.LogUsuario(Usuario.MUsuario.Usuario,
                                  CoreMySql.CoreMe.Servidor,
+                                 GetMyIp,
                                  Erros.TipoFuncaoUsuario.Entrada);
             }
 
@@ -261,6 +278,13 @@ namespace OSE_V110.View
         /// <param name="e"></param>
         private void CmdConfig_OnClick(object sender, RoutedEventArgs e)
         {
+            //var sign = new Sign()
+            //{
+            //    TitleCaps = true,
+            //    ShowTitleBar = true,
+            //    GlowBrush = new SolidColorBrush(Colors.Black)
+            //};
+            //sign.Show();
         }
         private async Task<LoginDialogData> _showLogin(string lTitle,
                                                       string lMessage)
@@ -290,9 +314,11 @@ namespace OSE_V110.View
             Gridcolunas.Columns[0].Width = _mrColunaTipo;
             Gridcolunas.Columns[1].Width = _mrColunaModulo;
             Gridcolunas.Columns[2].Width = _mrColunaDescricao;
-            ListViewMenu.Items.Clear();
 
             if (ArrayList.Count == 0) { return; }
+            ListViewMenu.Items.Clear();
+
+
             foreach (var vitem in ArrayList.Cast<Menu>())
             {
                 ListViewMenu.Items.Add(new Menu()
@@ -306,6 +332,9 @@ namespace OSE_V110.View
             /*ListViewMenu.Foreground = Color.DodgerBlue;*/
             ArrayList.Clear();
             ListViewMenu.Focus();    
+            //ListViewMenu.Focusable = false;
+            ListViewMenu.SelectedItem = ListViewMenu.Items[0];
+
         }
 
         /// <summary>
@@ -351,13 +380,14 @@ namespace OSE_V110.View
                 //{
                     CoreMySql.LoadMenu(item.Modulo, Usuario.MUsuario.Privilegio);
                     Lastobj = item.Modulo;
-                    MenuAnt = item.ModPai;
+                    //MenuAnt = item.Modulo;
 
                     InicializarListView();
                 //}
             }
         }
 
+        private static Process p;
         /// <summary>
         /// Chama aplicacao externa + parametro de inicializacao
         /// </summary>
@@ -368,11 +398,11 @@ namespace OSE_V110.View
                           "\\Aplicacao\\" +
                           aplic + ".exe";
             if (!File.Exists(program)) { return; }
-            var p = Process.Start(program, @"Odin");
+            p = Process.Start(program, @"Odin");
             if (p != null) p.WaitForExit();
         }
 
-        private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
+        private async void MetroWindow_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
@@ -385,7 +415,19 @@ namespace OSE_V110.View
                     {
                         CmdEntra_OnClick(null, null);
                     }
-                    break;       
+                    break;   
+                case Key.Escape:
+                    var result = await this.ShowMessageAsync(@"Encerar Sistema", @"Deseja realmente encerrar ?", MessageDialogStyle.AffirmativeAndNegative, null);
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        this.Close();
+                    }
+                    if (ListViewMenu.Visibility == Visibility.Visible &&
+                        ListViewMenu.Items.Count != 0)
+                    {
+                        ListViewMenu.SelectedItem = ListViewMenu.Items[0];
+                    }
+                    break;
             }
             if (ListViewMenu.Visibility != Visibility.Visible)
             {
@@ -402,7 +444,10 @@ namespace OSE_V110.View
                     break;
 
                 case Key.Escape:
-
+                    //if (ListViewMenu.Visibility == Visibility.Visible)
+                    //{
+                    //    Navige(true);
+                    //}
                     break;
 
                
@@ -419,6 +464,7 @@ namespace OSE_V110.View
             // Log de Usuario(s)
             Erros.LogUsuario(Usuario.MUsuario.Usuario,
                              CoreMySql.CoreMe.Servidor,
+                             GetMyIp,
                              Erros.TipoFuncaoUsuario.Saida);
 
 
@@ -458,6 +504,7 @@ namespace OSE_V110.View
             }
         }
 
+
         #region DllImport's
 
         [DllImport("kernel32.dll")]
@@ -470,5 +517,33 @@ namespace OSE_V110.View
         const int SwShow = 5;
 
         #endregion
+
+        private void MetroWindow_Closed(object sender, EventArgs e)
+        {
+            if (CmdSair.Visibility == Visibility.Visible)
+            {
+                CmdSair_OnClick(null, null);
+            }
+            if (p != null && !p.HasExited)
+            {
+                p.Kill();
+            }
+        }
+
+        private void CmdResetServiceMySql_OnClick(object sender, RoutedEventArgs e)
+        {
+            ButtonMysql_Click(null, null);
+        }
+
+        private void ItemResetMySqlExibir_OnClick(object sender, RoutedEventArgs e)
+        {
+            CmdResetServiceMySql.Visibility = Visibility.Visible;
+        }
+
+        private void ItemResetMySqlOcultar_OnClick(object sender, RoutedEventArgs e)
+        {
+            CmdResetServiceMySql.Visibility = Visibility.Collapsed;
+
+        }
     }
 }

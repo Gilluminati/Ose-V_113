@@ -51,14 +51,17 @@ namespace OSE_V110.Class
             Bloqueado,
             Indefinido
         }
+
         /// <summary>
         /// Simples log de usuario
         /// </summary>
         /// <param name="user">Usuario</param>
         /// <param name="servidor">Servidor</param>
+        /// <param name="estacao"></param>
         /// <param name="funcao">Funcao</param>
         public static void LogUsuario(string user,
                                       string servidor,
+                                      string estacao,  
                                       TipoFuncaoUsuario funcao)
         {
             var path = @"%AppData%\Ose\Log\";
@@ -73,7 +76,6 @@ namespace OSE_V110.Class
             var time = DateTime.Now.ToString("HH:mm");
             string file = string.Concat(path,HashEncryp.Codifica(user));
             StreamWriter sw;
-            StreamReader sr;
             if (!File.Exists(file + @".txt"))
             {
                 using (sw = File.CreateText(file + @".txt"))
@@ -84,6 +86,7 @@ namespace OSE_V110.Class
                     sw.WriteLine(@"Usuario :" + user);
                     sw.WriteLine(@"Servidor :" + servidor);
                     sw.WriteLine(@"Funcao :" + funcao.ToString());
+                    sw.WriteLine(@"Estacao :" + estacao);
                     sw.WriteLine(@"- - - - - - - - - - - - - - - - - - - -");
                     sw.WriteLine();
                 }
@@ -96,6 +99,7 @@ namespace OSE_V110.Class
                            @"Usuario :" + user + Environment.NewLine +
                            @"Servidor :" + servidor + Environment.NewLine +
                            @"Funcao :" + funcao.ToString() + Environment.NewLine +
+                           @"Estacao :" + estacao + Environment.NewLine +
                            @"- - - - - - - - - - - - - - - - - - - -" + Environment.NewLine ; 
                 using (StreamWriter tw = File.AppendText(file + @".txt"))
                 {

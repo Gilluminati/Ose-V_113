@@ -112,11 +112,18 @@
     <Compile Include="View\Janela.xaml.cs">
       <DependentUpon>Janela.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Sign.xaml.cs">
+      <DependentUpon>Sign.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Janela.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Sign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

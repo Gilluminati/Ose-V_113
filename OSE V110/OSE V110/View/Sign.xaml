@@ -1,0 +1,12 @@
+﻿<controls:MetroWindow x:Class="OSE_V110.View.Sign"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        
+        TitleCaps="False" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  
+        FontFamily="Segoe WP SemiLight" 
+        Title="Sign" Height="300" Width="300">
+    <Grid>
+        
+    </Grid>
+</controls:MetroWindow>

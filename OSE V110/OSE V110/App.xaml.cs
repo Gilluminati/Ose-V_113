@@ -20,7 +20,7 @@ namespace OSE_V110
                 Title = @"OSE ® Versao :" + CoreVersion.Versao, 
                 ShowTitleBar = true,
                 TitleCaps = false,
-                GlowBrush = new SolidColorBrush(Colors.White)
+                GlowBrush = new SolidColorBrush(Colors.Black)
             };
             janela.Show();
             janela.ModoDesenvolvedor(e);

@@ -6,8 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using MDM900.View;
 
-namespace MDM100
+namespace MDM900
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -19,18 +20,17 @@ namespace MDM100
             // CaptureArgs
             if (!ValidaArgs(e))
             {
-                Current.Shutdown();
-                return;
+                //Current.Shutdown();
+                //return;
             }
             // ----------------------------
-
-            MainWindow wnd = new MainWindow()
+            var janela = new Janela()
             {
                 ShowTitleBar = false,
                 TitleCaps = false,
                 GlowBrush = new SolidColorBrush(Colors.DodgerBlue)
             };
-            wnd.Show();
+            janela.Show();
         }
 
         #region CaptureArgs

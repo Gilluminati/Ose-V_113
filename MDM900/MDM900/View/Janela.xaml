@@ -1,0 +1,87 @@
+﻿<controls:MetroWindow x:Class="MDM900.View.Janela"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        TitleCaps="False" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  
+        FontFamily="Segoe WP SemiLight"                      
+        IsWindowDraggable="False"  
+        Height="600" Width="1000" Loaded="Janela_OnLoaded">
+    <controls:MetroWindow.ContextMenu>
+        <ContextMenu>
+            <MenuItem x:Name="ItemImprimirTela" Click="ItemImprimirTela_OnClick" Header="Imprimir Tela"></MenuItem>
+        </ContextMenu>
+    </controls:MetroWindow.ContextMenu>
+
+    <!--Controles Da Janela-->
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+
+            <!--Cadastra Novo Modulo-->
+            <Button Cursor="Hand" x:Name="CmdCadastra" >
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" x:Name="RectangleCmdSuporte"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                                   VerticalAlignment="Center"
+                                   Text="Cadastrar Usuario" />
+                </StackPanel>
+            </Button>
+
+
+
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+    <Grid>
+
+        <Canvas HorizontalAlignment="Left" Height="552" Margin="10,10,0,0" VerticalAlignment="Top" Width="974">
+          
+            <Label x:Name="Label" Content="MDM200" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Silver" Height="26" Canvas.Top="10" Width="202" Canvas.Left="10"/>
+            <Label Content="Manutencao de Usuario(s) Sistema" Canvas.Left="347" Canvas.Top="9" FontSize="20" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <Label Content="Pesquisar :" Canvas.Left="274" Canvas.Top="52" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <TextBox x:Name="TextBoxPesquisa" FontSize="15" FontFamily="Segoe WP SemiLight" Height="23"  Canvas.Left="343" TextWrapping="Wrap" Text="" Canvas.Top="52" Width="379"  TabIndex="0"/>
+            <Label Content="Total Usuario(s) Cadastrado(s) :" Canvas.Left="14" Canvas.Top="34" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <Label x:Name="LabelTotalUser" Content="000" Canvas.Left="183" Canvas.Top="34" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="DodgerBlue"/>
+            <RadioButton Content="Nome" Canvas.Left="344" Width="75" TabIndex="1" Canvas.Top="83"/>
+            <RadioButton Content="Usuario" Canvas.Left="427" Width="75" TabIndex="1" Canvas.Top="83"/>
+            <ListView  x:Name="ListView" Height="398" Canvas.Left="10" Canvas.Top="144" Width="954" MouseLeftButtonDown="ListView_MouseLeftButtonDown" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="ListView_MouseDoubleClick" TabIndex="7" KeyDown="ListView_KeyDown">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Cadastrar novo usuario"></MenuItem>
+                        <MenuItem Header="Editar usuario"></MenuItem>
+                        <MenuItem Header="Exluir usuario"></MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>
+                    <GridView  x:Name="Gridcolunas" AllowsColumnReorder="False">
+                        <GridViewColumn x:Name="ColumnTipo" Header="Nome" 
+            				DisplayMemberBinding="{Binding Nome}"
+            				Width="200"/>
+
+                        <GridViewColumn Header="Usuario"
+            				DisplayMemberBinding="{Binding Usuario}"
+            				Width="300"/>
+
+                        <GridViewColumn Header="Privilegio"
+            				DisplayMemberBinding="{Binding Privilegio}"
+            				Width="200"/>
+
+                        <GridViewColumn Header="Estado"
+            				DisplayMemberBinding="{Binding Estado}"
+            				Width="251"/>
+
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Content="Fitlrar por usuario :" Canvas.Left="233" Canvas.Top="111" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black"/>
+            <RadioButton Content="Liberado(s)" Canvas.Left="427" Width="98" TabIndex="1" Canvas.Top="115"/>
+            <RadioButton Content="Bloqueado(s)" Canvas.Left="525" Width="104" TabIndex="1" Canvas.Top="115"/>
+            <RadioButton Content="Todos" Canvas.Left="347" Width="75" TabIndex="1" Canvas.Top="115"/>
+        </Canvas>
+    </Grid>
+</controls:MetroWindow>

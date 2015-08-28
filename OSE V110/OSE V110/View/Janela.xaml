@@ -5,13 +5,19 @@
         
         TitleCaps="False" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  
         FontFamily="Segoe WP SemiLight" 
-        Title="Janela" Height="672" Width="1022" Loaded="MetroWindow_Loaded" KeyDown="MetroWindow_KeyDown">
+        Title="Janela" Height="672" Width="1022" Loaded="MetroWindow_Loaded" KeyDown="MetroWindow_KeyDown" Closed="MetroWindow_Closed">
+    <!--<controls:MetroWindow.ContextMenu>
+        <ContextMenu>-->
+            <!--<MenuItem x:Name="ItemResetMySqlExibir" Header="Exibir Reset MySql" Click="ItemResetMySqlExibir_OnClick" />
+            <MenuItem x:Name="ItemResetMySqlOcultar" Header="Ocultar Reset MySql" Click="ItemResetMySqlOcultar_OnClick" />-->
+        <!--</ContextMenu>-->
+    <!--</controls:MetroWindow.ContextMenu>-->
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <!-- Region (Botoes) -->
 
             <!--Botao Configurar-->
-            <Button Cursor="Hand" x:Name="CmdConfig" Click="CmdConfig_OnClick" >
+            <Button Cursor="Hand" x:Name="CmdConfig" Click="CmdConfig_OnClick" Visibility="Hidden" >
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20" 
                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
@@ -26,7 +32,28 @@
                 </StackPanel>
             </Button>
 
-
+            <!--Reset Servico MySql-->
+            <Button Cursor="Hand" x:Name="CmdResetServiceMySql" Click="CmdResetServiceMySql_OnClick" Visibility="Hidden" >
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <!--<MenuItem x:Name="ItemResetMySql" Header="Ocultar" Click="ItemResetMySql_OnClick" />-->
+                    </ContextMenu>
+                </Button.ContextMenu>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" 
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_connect}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                                   VerticalAlignment="Center"
+                                   Text="Reset Serviço MySql" />
+                </StackPanel>
+            </Button>
+            
+            
             <!--Botao Entrar-->
             <Button Cursor="Hand" x:Name="CmdEntra" Click="CmdEntra_OnClick">
                 <StackPanel Orientation="Horizontal">
@@ -64,16 +91,21 @@
     <Grid>
         <GroupBox x:Name="BoxMenu"  Margin="10,10,10,0" VerticalAlignment="Top" Height="576" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
             <ListView x:Name="ListViewMenu" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" BorderThickness="0,0,0.5,0.5" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" KeyDown="ListViewMenu_OnKeyDown" MouseDoubleClick="ListViewMenu_OnMouseDoubleClick" IsSynchronizedWithCurrentItem="True" FontSize="15" BorderBrush="DeepSkyBlue" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Height="546" Margin="10,0,0,0" VerticalAlignment="Top" Width="962">
-                <ListView.View >
+                <ListView.Resources>
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
                     <GridView  x:Name="Gridcolunas" AllowsColumnReorder="False">
-                        <GridViewColumn x:Name="ColumnTipo" Header="Tipo" 
+                        <GridViewColumn x:Name="ColumnTipo" 
     						DisplayMemberBinding="{Binding Tipo}"
     						Width="150"/>
 
-                        <GridViewColumn Header="Modulo"
+                        <GridViewColumn
     						DisplayMemberBinding="{Binding Modulo}"
     						Width="150"/>
-                        <GridViewColumn Header="Descricao"
+                        <GridViewColumn
     						DisplayMemberBinding="{Binding Descricao}"
     						Width="673"/>
                     </GridView>
@@ -81,14 +113,14 @@
             </ListView>
         </GroupBox>
         <Canvas HorizontalAlignment="Left" Margin="0,591,0,0" Width="1006" Height="31" VerticalAlignment="Top" >
-            <Label Content="Conexão :" Canvas.Left="10" Canvas.Top="10" FontSize="20" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="Black" BorderBrush="White"/>
+            <Label Content="Conexão :" Canvas.Left="10" Canvas.Top="10" FontSize="20" FontWeight="Light" FontFamily="Segoe WP SemiLight" Foreground="White" BorderBrush="White"/>
             <Label  x:Name="LblConexaoStatus" Content="Desligada(o)" Canvas.Left="105" Canvas.Top="16" FontFamily="Segoe WP SemiLight" FontSize="14" FontWeight="Light" Foreground="Black"/>
-            <Label Content="Servidor :" Canvas.Left="218" Canvas.Top="10" FontFamily="Segoe WP SemiLight" FontSize="20" FontWeight="Light" Foreground="Black" BorderBrush="White"/>
+            <Label Content="Servidor :" Canvas.Left="218" Canvas.Top="10" FontFamily="Segoe WP SemiLight" FontSize="20" FontWeight="Light" Foreground="White" BorderBrush="White"/>
             <Label x:Name="LblServidorStatus" Content="000.000.0.0" Canvas.Left="310" Canvas.Top="16" FontFamily="Segoe WP SemiLight" FontSize="14" FontWeight="Light" Foreground="Black"/>
-            <Label Content="Usuario :" Canvas.Left="494" Canvas.Top="12" FontFamily="Segoe WP SemiLight" FontSize="20" FontWeight="Light" Foreground="Black" BorderBrush="White"/>
+            <Label Content="Usuario :" Canvas.Left="494" Canvas.Top="12" FontFamily="Segoe WP SemiLight" FontSize="20" FontWeight="Light" Foreground="White" BorderBrush="White"/>
             <Label x:Name="LblUsuarioStatus" Content="Desconectado" Canvas.Left="580" Canvas.Top="18" FontFamily="Segoe WP SemiLight" FontSize="14" FontWeight="Light" Foreground="Black"/>
             <Label x:Name="LblStatusMyIp" HorizontalContentAlignment="Right" Content="000.000.0.0" Canvas.Left="707" Canvas.Top="17" FontFamily="Segoe WP SemiLight" FontSize="13" FontWeight="Light" Width="137" Foreground="Black"/>
-            <Button x:Name="ButtonMysql"  Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand" BorderBrush="{x:Null}" ToolTip="Reconectar MySql" Background="#FFD5D5D5" Height="52" Canvas.Left="937" Width="56" Click="ButtonMysql_Click" >
+            <Button x:Name="ButtonMysql"  Style="{DynamicResource MetroCircleButtonStyle}" Cursor="Hand" BorderBrush="{x:Null}" ToolTip="Reconectar MySql" Background="#FFD5D5D5" Height="52" Canvas.Left="937" Width="56" Click="ButtonMysql_Click" Visibility="Hidden" >
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Margin="10 0 10 0" Width="32" Height="20" 
         				Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
